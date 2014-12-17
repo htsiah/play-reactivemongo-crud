@@ -2,6 +2,7 @@ package controllers
 
 import scala.concurrent.Future
 import org.joda.time.DateTime
+import org.joda.time.format.ISODateTimeFormat
 
 import play.api._
 import play.api.mvc._
@@ -20,22 +21,25 @@ object Application extends Controller {
   val personForm = Form(
       mapping(
           "_id" ->  ignored(BSONObjectID.generate: BSONObjectID),
-          "_creationDate" -> optional(of[Long]),
-          "_updateDate" -> optional(of[Long]),
-          "name" -> text
-      ){(_id,_creationDate,_updateDate,name)=>
+          "_creationDate" -> optional(jodaDate),
+          "_updateDate" -> optional(jodaDate),
+          "name" -> text,
+          "dob" -> optional(jodaDate)
+      ){(_id,_creationDate,_updateDate,name,dob)=>
         Person(
             _id,
-            _creationDate.map(new DateTime(_)),
-            _updateDate.map(new DateTime(_)),
-            name
+            _creationDate,
+            _updateDate,
+            name,
+            dob
         )
       }{person:Person=>
         Some(
             person._id,
-            person._creationDate.map(_.getMillis),
-            person._updateDate.map(_.getMillis),
-            person.name
+            person._creationDate,
+            person._updateDate,
+            person.name,
+            person.dob
         )
       }
   )

@@ -13,7 +13,8 @@ case class Person (
     _id: BSONObjectID,
     _creationDate: Option[DateTime],
     _updateDate: Option[DateTime],
-    name: String
+    name: String,
+    dob: Option[DateTime]
 )
   
 object PersonModel {
@@ -21,12 +22,12 @@ object PersonModel {
   	// Use Reader to deserialize document automatically
 	implicit object PersonBSONReader extends BSONDocumentReader[Person] {
 		def read(doc: BSONDocument): Person = {
-
 			Person(
 					doc.getAs[BSONObjectID]("_id").get,
 					doc.getAs[BSONDateTime]("_creationDate").map(dt => new DateTime(dt.value)),
 					doc.getAs[BSONDateTime]("_updateDate").map(dt => new DateTime(dt.value)),
-					doc.getAs[String]("name").get
+					doc.getAs[String]("name").get,
+					doc.getAs[BSONDateTime]("dob").map(dt => new DateTime(dt.value))
 			)
 		}
 	}
@@ -38,7 +39,8 @@ object PersonModel {
 					"_id" -> person._id,
 					"_creationDate" -> person._creationDate.map(date => BSONDateTime(date.getMillis)),
 					"_updateDate" -> person._updateDate.map(date => BSONDateTime(date.getMillis)),
-					"name" -> person.name
+					"name" -> person.name,
+					"dob" -> person.dob.map(date => BSONDateTime(date.getMillis))
 			)
 	}
     
