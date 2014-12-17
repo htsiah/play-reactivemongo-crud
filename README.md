@@ -8,7 +8,7 @@ This example use the following:
 </ul>
 Step by step setup
 =======================
-1. Modify project/Build.scala
+- Modify project/Build.scala
 <pre>
 import sbt._
 import Keys._
@@ -33,15 +33,15 @@ object ApplicationBuild extends Build {
 }
 </pre>
 
-2. Create or append conf/play.plugins
+- Create or append conf/play.plugins
 <pre>
 1100:play.modules.reactivemongo.ReactiveMongoPlugin
 </pre>
 
-3. Append application.conf
+- Append application.conf
 <pre>
 # Reactivemongo default database
 mongodb.uri = "mongodb://localhost:27017/reactivemongo"
 </pre>
 
-4. Remove built.sbt as we are using Build.scala. 
+- Remove built.sbt as we are using Build.scala. 
