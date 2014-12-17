@@ -10,6 +10,8 @@ This example use the following:
 <li>JQuery</li>
 </ul>
 
+play-reactivemongo-crud
 =======================
+
 
 <div class="highlight highlight-scala"><pre></pre></div>
