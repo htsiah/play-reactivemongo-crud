@@ -1,7 +1,5 @@
-play-reactivemongo-crud
+Reactivemongo for Play 2.3 Example
 =======================
-
-Reactivemongo for Play 2.3
 
 This example use the following:
 <ul>
