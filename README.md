@@ -1,17 +1,14 @@
 Reactivemongo for Play 2.3 Example
 =======================
-
 This example use the following:
 <ul>
 <li>Play Framework 2.3.6</li>
 <li>Mongo DB</li>
 <li>JQuery</li>
 </ul>
-
 Step by step setup
 =======================
 1. Modify project/Build.scala
-
 <pre>
 import sbt._
 import Keys._
