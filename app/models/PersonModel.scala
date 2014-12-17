@@ -38,22 +38,53 @@ object PersonModel {
     
 	// Connect to localhost
 	val connection = driver.connection(List("localhost"))
-	
+
 	// Connect to mongodb
 	val db = connection.db("reactivemongo")
 	
 	// Connect to mongodb collection
 	val collection = db.collection("persons")
 	
-	def insert (p_doc:Person)= {
+	// Insert new document using non blocking 
+	def insert(p_doc:Person)= {
 	  val future = collection.insert(p_doc)
+	  
 	  future.onComplete {
 	  	case Failure(e) => throw e
 	  	case Success(lastError) => {
 	  		println("successfully inserted document with lastError = " + lastError)
 	  	}
 	  }
-	  
 	}
+	
+	// Update document using blocking
+	def update(p_query:BSONDocument,p_modifier:Person) = {
+	  collection.update(p_query, p_modifier)
+	}
+	
+	// Optional - Soft deletion by setting deletion flag in document
+	def remove(p_query:BSONDocument) = {}
+	
+	// Delete document using blocking
+	def removePermanently(p_query:BSONDocument) = {
+	  collection.remove(p_query)
+	}
+	
+	// Find all documents using blocking
+	def find(p_query:BSONDocument) = {
+	  collection.find(p_query).cursor[Person].collect[List]()	  
+	}
+	
+	// Find one document using blocking
+	// Return the first found document
+	def findOne(p_query:BSONDocument) = {
+	  collection.find(p_query).one[Person]
+	}
+	
+	// Optional - Find all document with filter
+	def find(p_query:BSONDocument,p_filter:BSONDocument) = {}
+	
+	// Optional - Find all document with filter and sorting
+	def find(p_query:BSONDocument,p_filter:BSONDocument,p_sort:BSONDocument) = {}
 	
 }

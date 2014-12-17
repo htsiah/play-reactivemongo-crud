@@ -1,0 +1,20 @@
+@(personform:Form[Person],id:String="")
+
+@import helper._
+
+@main("Welcome to Reactivemongo CRUD") {
+
+	@helper.form(action = (
+		if(id==""){
+			routes.Application.insert
+		} else {
+			routes.Application.update(id)
+		}
+	), 'id -> "personform") {
+		@inputText(personform("name"), '_label -> "Name *", '_showConstraints -> false)
+	}
+		
+	<a href="javascript:$('#personform').submit()">Save</a>
+	<a href="@routes.Application.index">Back</a>
+	
+}
