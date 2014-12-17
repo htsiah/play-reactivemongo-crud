@@ -8,7 +8,7 @@ This example use the following:
 </ul>
 Step by step setup
 =======================
-- Modify project/Build.scala
+Modify project/Build.scala
 <div class="highlight highlight-scala"><pre>
 import sbt._
 import Keys._
@@ -33,15 +33,15 @@ object ApplicationBuild extends Build {
 }
 </pre></div>
 
-- <p>Create or append conf/play.plugins</p>
+Create or append conf/play.plugins
 <div class="highlight highlight-scala"><pre>
 1100:play.modules.reactivemongo.ReactiveMongoPlugin
 </pre></div>
 
-- <p>Append application.conf</p>
+Append application.conf
 <div class="highlight highlight-scala"><pre>
 # Reactivemongo default database
 mongodb.uri = "mongodb://localhost:27017/reactivemongo"
 </pre></div>
 
-- Remove built.sbt as we are using Build.scala. 
+Remove built.sbt as we are using Build.scala. 
