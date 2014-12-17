@@ -11,3 +11,5 @@ This example use the following:
 </ul>
 
 =======================
+
+<div class="highlight highlight-scala"><pre></pre></div>
