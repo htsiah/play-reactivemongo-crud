@@ -1,10 +1,13 @@
 play-reactivemongo-crud
 =======================
 
-Reactivemongo for Play 2.3 (In-progress)
+Reactivemongo for Play 2.3
 
 This example use the following:
 <ul>
-<li>eee</li>
-<li>eee</li>
+<li>Play Framework 2.3.6</li>
+<li>Mongo DB</li>
+<li>JQuery</li>
 </ul>
+
+=======================
