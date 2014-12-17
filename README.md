@@ -12,7 +12,7 @@ Step by step setup
 =======================
 1. Modify project/Build.scala
 
-<div><pre>
+<pre>
 import sbt._
 import Keys._
 import play.Play.autoImport._
@@ -34,4 +34,17 @@ object ApplicationBuild extends Build {
   )
 
 }
-</pre></div>
+</pre>
+
+2. Create or append conf/play.plugins
+<pre>
+1100:play.modules.reactivemongo.ReactiveMongoPlugin
+</pre>
+
+3. Append application.conf
+<pre>
+# Reactivemongo default database
+mongodb.uri = "mongodb://localhost:27017/reactivemongo"
+</pre>
+
+4. Remove built.sbt as we are using Build.scala. 
