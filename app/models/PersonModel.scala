@@ -14,7 +14,10 @@ case class Person (
     _creationDate: Option[DateTime],
     _updateDate: Option[DateTime],
     name: String,
-    dob: Option[DateTime]
+    dob: Option[DateTime],
+    age: Int,
+    salary: Double,
+    admin: Boolean
 )
   
 object PersonModel {
@@ -23,11 +26,14 @@ object PersonModel {
 	implicit object PersonBSONReader extends BSONDocumentReader[Person] {
 		def read(doc: BSONDocument): Person = {
 			Person(
-					doc.getAs[BSONObjectID]("_id").get,
-					doc.getAs[BSONDateTime]("_creationDate").map(dt => new DateTime(dt.value)),
-					doc.getAs[BSONDateTime]("_updateDate").map(dt => new DateTime(dt.value)),
-					doc.getAs[String]("name").get,
-					doc.getAs[BSONDateTime]("dob").map(dt => new DateTime(dt.value))
+				doc.getAs[BSONObjectID]("_id").get,
+				doc.getAs[BSONDateTime]("_creationDate").map(dt => new DateTime(dt.value)),
+				doc.getAs[BSONDateTime]("_updateDate").map(dt => new DateTime(dt.value)),
+				doc.getAs[String]("name").get,
+				doc.getAs[BSONDateTime]("dob").map(dt => new DateTime(dt.value)),
+				doc.getAs[Int]("age").getOrElse(0),
+				doc.getAs[Double]("salary").getOrElse(0.0),
+				doc.getAs[Boolean]("admin").getOrElse(false)
 			)
 		}
 	}
@@ -36,11 +42,14 @@ object PersonModel {
 	implicit object PersonBSONWriter extends BSONDocumentWriter[Person] {
 		def write(person: Person): BSONDocument =
 			BSONDocument(
-					"_id" -> person._id,
-					"_creationDate" -> person._creationDate.map(date => BSONDateTime(date.getMillis)),
-					"_updateDate" -> person._updateDate.map(date => BSONDateTime(date.getMillis)),
-					"name" -> person.name,
-					"dob" -> person.dob.map(date => BSONDateTime(date.getMillis))
+				"_id" -> person._id,
+				"_creationDate" -> person._creationDate.map(date => BSONDateTime(date.getMillis)),
+				"_updateDate" -> person._updateDate.map(date => BSONDateTime(date.getMillis)),
+				"name" -> person.name,
+				"dob" -> person.dob.map(date => BSONDateTime(date.getMillis)),
+				"age" -> person.age,
+				"salary" -> person.salary,
+				"admin" -> person.admin
 			)
 	}
     

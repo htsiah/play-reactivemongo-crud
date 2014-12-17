@@ -2,6 +2,14 @@
 
 @import helper._
 
+@radioSelected(value: Option[String], valueCheck: String) = {
+	@if(value != None){
+		@if(value.get == valueCheck){
+			checked="checked"
+		}
+	}
+}
+
 @main("Welcome to Reactivemongo CRUD") {
 
 	@helper.form(action = (
@@ -11,8 +19,11 @@
 			routes.Application.update(id)
 		}
 	), 'id -> "personform") {
-		@inputText(personform("name"), '_label -> "Name", '_showConstraints -> false)
+		@inputText(personform("name"), '_label -> "Name (String)", '_showConstraints -> false)
 		@inputText(personform("dob"), '_label -> "Date of birth (dd-mm-yyyy)", '_showConstraints -> false)
+		@inputText(personform("age"), '_label -> "Age (Integer)", '_showConstraints -> false)
+		@inputText(personform("salary"), '_label -> "Salary (Double)", '_showConstraints -> false)
+		<input type="checkbox" value="true" name="admin" id="admin" @radioSelected(personform("admin").value, "true"))> Admin (Boolean)
 		<div style="display:none;">
 			@inputText(personform("_creationDate"))
 			@inputText(personform("_updateDate"))

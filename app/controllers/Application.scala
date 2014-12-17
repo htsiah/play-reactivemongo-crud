@@ -24,14 +24,20 @@ object Application extends Controller {
           "_creationDate" -> optional(jodaDate),
           "_updateDate" -> optional(jodaDate),
           "name" -> text,
-          "dob" -> optional(jodaDate("dd-mm-yyyy"))
-      ){(_id,_creationDate,_updateDate,name,dob)=>
+          "dob" -> optional(jodaDate("dd-mm-yyyy")),
+          "age" -> number,
+          "salary" -> of[Double],
+          "admin" -> boolean
+      ){(_id,_creationDate,_updateDate,name,dob,age,salary,admin)=>
         Person(
             _id,
             _creationDate,
             _updateDate,
             name,
-            dob
+            dob,
+            age,
+            salary,
+            admin
         )
       }{person:Person=>
         Some(
@@ -39,7 +45,10 @@ object Application extends Controller {
             person._creationDate,
             person._updateDate,
             person.name,
-            person.dob
+            person.dob,
+            person.age,
+            person.salary,
+            person.admin
         )
       }
   )
