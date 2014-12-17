@@ -12,7 +12,7 @@ Step by step setup
 =======================
 1. Modify project/Build.scala
 
-<div class="highlight highlight-scala"><pre>
+<div><pre>
 import sbt._
 import Keys._
 import play.Play.autoImport._
