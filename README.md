@@ -33,12 +33,12 @@ object ApplicationBuild extends Build {
 }
 </pre></div>
 
-- Create or append conf/play.plugins
+- <p>Create or append conf/play.plugins</p>
 <div class="highlight highlight-scala"><pre>
 1100:play.modules.reactivemongo.ReactiveMongoPlugin
 </pre></div>
 
-- Append application.conf
+- <p>Append application.conf</p>
 <div class="highlight highlight-scala"><pre>
 # Reactivemongo default database
 mongodb.uri = "mongodb://localhost:27017/reactivemongo"
