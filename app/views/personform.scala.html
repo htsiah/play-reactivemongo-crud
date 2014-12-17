@@ -12,7 +12,7 @@
 		}
 	), 'id -> "personform") {
 		@inputText(personform("name"), '_label -> "Name", '_showConstraints -> false)
-		@inputText(personform("dob"), '_label -> "Date of birth (yyyy-mm-dd)", '_showConstraints -> false)
+		@inputText(personform("dob"), '_label -> "Date of birth (dd-mm-yyyy)", '_showConstraints -> false)
 		<div style="display:none;">
 			@inputText(personform("_creationDate"))
 			@inputText(personform("_updateDate"))

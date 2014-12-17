@@ -24,7 +24,7 @@ object Application extends Controller {
           "_creationDate" -> optional(jodaDate),
           "_updateDate" -> optional(jodaDate),
           "name" -> text,
-          "dob" -> optional(jodaDate)
+          "dob" -> optional(jodaDate("dd-mm-yyyy"))
       ){(_id,_creationDate,_updateDate,name,dob)=>
         Person(
             _id,
