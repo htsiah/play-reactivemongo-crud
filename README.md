@@ -9,7 +9,7 @@ This example use the following:
 Step by step setup
 =======================
 - Modify project/Build.scala
-<pre>
+<div class="highlight highlight-scala"><pre>
 import sbt._
 import Keys._
 import play.Play.autoImport._
@@ -31,17 +31,17 @@ object ApplicationBuild extends Build {
   )
 
 }
-</pre>
+</pre></div>
 
 - Create or append conf/play.plugins
-<pre>
+<div class="highlight highlight-scala"><pre>
 1100:play.modules.reactivemongo.ReactiveMongoPlugin
-</pre>
+</pre></div>
 
 - Append application.conf
-<pre>
+<div class="highlight highlight-scala"><pre>
 # Reactivemongo default database
 mongodb.uri = "mongodb://localhost:27017/reactivemongo"
-</pre>
+</pre></div>
 
 - Remove built.sbt as we are using Build.scala. 
