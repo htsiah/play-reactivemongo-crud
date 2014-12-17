@@ -1,6 +1,7 @@
 package models
 
 import scala.util.{Success, Failure}
+import org.joda.time.DateTime
 
 import play.api.libs.concurrent._
 import play.api.libs.concurrent.Execution.Implicits._
@@ -10,6 +11,8 @@ import reactivemongo.bson._
 
 case class Person (
     _id: BSONObjectID,
+    _creationDate: Option[DateTime],
+    _updateDate: Option[DateTime],
     name: String
 )
   
@@ -17,11 +20,15 @@ object PersonModel {
   
   	// Use Reader to deserialize document automatically
 	implicit object PersonBSONReader extends BSONDocumentReader[Person] {
-		def read(doc: BSONDocument): Person =
+		def read(doc: BSONDocument): Person = {
+
 			Person(
 					doc.getAs[BSONObjectID]("_id").get,
+					doc.getAs[BSONDateTime]("_creationDate").map(dt => new DateTime(dt.value)),
+					doc.getAs[BSONDateTime]("_updateDate").map(dt => new DateTime(dt.value)),
 					doc.getAs[String]("name").get
 			)
+		}
 	}
 	
 	// Use Writer to serialize document automatically
@@ -29,6 +36,8 @@ object PersonModel {
 		def write(person: Person): BSONDocument =
 			BSONDocument(
 					"_id" -> person._id,
+					"_creationDate" -> person._creationDate.map(date => BSONDateTime(date.getMillis)),
+					"_updateDate" -> person._updateDate.map(date => BSONDateTime(date.getMillis)),
 					"name" -> person.name
 			)
 	}
@@ -47,7 +56,7 @@ object PersonModel {
 	
 	// Insert new document using non blocking 
 	def insert(p_doc:Person)= {
-	  val future = collection.insert(p_doc)
+	  val future = collection.insert(p_doc.copy(_creationDate = Some(new DateTime()), _updateDate = Some(new DateTime())))
 	  
 	  future.onComplete {
 	  	case Failure(e) => throw e
@@ -59,7 +68,7 @@ object PersonModel {
 	
 	// Update document using blocking
 	def update(p_query:BSONDocument,p_modifier:Person) = {
-	  collection.update(p_query, p_modifier)
+	  collection.update(p_query, p_modifier.copy(_updateDate = Some(new DateTime())))
 	}
 	
 	// Optional - Soft deletion by setting deletion flag in document

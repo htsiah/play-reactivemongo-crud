@@ -12,6 +12,10 @@
 		}
 	), 'id -> "personform") {
 		@inputText(personform("name"), '_label -> "Name *", '_showConstraints -> false)
+		<div style="display:none;">
+			@inputText(personform("_creationDate"))
+			@inputText(personform("_updateDate"))
+		</div>
 	}
 		
 	<a href="javascript:$('#personform').submit()">Save</a>

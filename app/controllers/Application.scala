@@ -1,6 +1,7 @@
 package controllers
 
 import scala.concurrent.Future
+import org.joda.time.DateTime
 
 import play.api._
 import play.api.mvc._
@@ -19,9 +20,24 @@ object Application extends Controller {
   val personForm = Form(
       mapping(
           "_id" ->  ignored(BSONObjectID.generate: BSONObjectID),
+          "_creationDate" -> optional(of[Long]),
+          "_updateDate" -> optional(of[Long]),
           "name" -> text
-      ){(_id,name)=>Person(_id,name)}
-      {person:Person=>Some(person._id,person.name)}
+      ){(_id,_creationDate,_updateDate,name)=>
+        Person(
+            _id,
+            _creationDate.map(new DateTime(_)),
+            _updateDate.map(new DateTime(_)),
+            name
+        )
+      }{person:Person=>
+        Some(
+            person._id,
+            person._creationDate.map(_.getMillis),
+            person._updateDate.map(_.getMillis),
+            person.name
+        )
+      }
   )
 
   def index = Action.async {
