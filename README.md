@@ -14,7 +14,7 @@ This example use the following:
 <li>MongoDb</li>
 <li>JQuery</li>
 </ul>
-Step by step setup
+Setup Instruction
 =======================
 Modify project/Build.scala
 <div class="highlight highlight-scala"><pre>
