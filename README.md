@@ -10,6 +10,7 @@ This is an CRUD Example Play Application in using reactiveMongo driver. It demon
 This example use the following:
 <ul>
 <li>Play Framework 2.3.6</li>
+<li>reactiveMongoDb Driver</li>
 <li>Mongo DB</li>
 <li>JQuery</li>
 </ul>
