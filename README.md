@@ -1,5 +1,12 @@
 Reactivemongo for Play 2.3 Example
 =======================
+This is an CRUD Example Play Application in using reactiveMongo driver. It demontrates:
+<ul>
+<li>Mongo DB Connection in Play Model</li>
+<li>BSONReader and BSONWriter Implementation in Play Model/li>
+<li>CRUD using different data type(String, JodaDate, Integer, Double, Boolean and List)</li>
+</ul>
+
 This example use the following:
 <ul>
 <li>Play Framework 2.3.6</li>
