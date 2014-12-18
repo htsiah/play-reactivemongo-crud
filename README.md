@@ -1,6 +1,6 @@
 Reactivemongo for Play 2.3 Example
 =======================
-This is a CRUD Example Play Application using reactiveMongo driver. It demontrates:
+This is a Play CRUD Example using reactiveMongo driver. It demontrates:
 <ul>
 <li>MongoDb Connection using reactiveMongoDb in Play</li>
 <li>BSONReader and BSONWriter Implementation</li>
