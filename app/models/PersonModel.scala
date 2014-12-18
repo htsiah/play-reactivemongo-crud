@@ -17,7 +17,8 @@ case class Person (
     dob: Option[DateTime],
     age: Int,
     salary: Double,
-    admin: Boolean
+    admin: Boolean,
+    hobbies: List[String]
 )
   
 object PersonModel {
@@ -33,14 +34,15 @@ object PersonModel {
 				doc.getAs[BSONDateTime]("dob").map(dt => new DateTime(dt.value)),
 				doc.getAs[Int]("age").getOrElse(0),
 				doc.getAs[Double]("salary").getOrElse(0.0),
-				doc.getAs[Boolean]("admin").getOrElse(false)
+				doc.getAs[Boolean]("admin").getOrElse(false),
+				doc.getAs[List[String]]("hobbies").getOrElse(List())
 			)
 		}
 	}
 	
 	// Use Writer to serialize document automatically
 	implicit object PersonBSONWriter extends BSONDocumentWriter[Person] {
-		def write(person: Person): BSONDocument =
+		def write(person: Person): BSONDocument = {
 			BSONDocument(
 				"_id" -> person._id,
 				"_creationDate" -> person._creationDate.map(date => BSONDateTime(date.getMillis)),
@@ -49,8 +51,10 @@ object PersonModel {
 				"dob" -> person.dob.map(date => BSONDateTime(date.getMillis)),
 				"age" -> person.age,
 				"salary" -> person.salary,
-				"admin" -> person.admin
+				"admin" -> person.admin,
+				"hobbies" -> person.hobbies 
 			)
+		}
 	}
     
 	// Call MongoDriver

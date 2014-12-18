@@ -2,7 +2,6 @@ package controllers
 
 import scala.concurrent.Future
 import org.joda.time.DateTime
-import org.joda.time.format.ISODateTimeFormat
 
 import play.api._
 import play.api.mvc._
@@ -20,15 +19,16 @@ object Application extends Controller {
   
   val personForm = Form(
       mapping(
-          "_id" ->  ignored(BSONObjectID.generate: BSONObjectID),
+          "_id" -> ignored(BSONObjectID.generate: BSONObjectID),
           "_creationDate" -> optional(jodaDate),
           "_updateDate" -> optional(jodaDate),
           "name" -> text,
           "dob" -> optional(jodaDate("dd-mm-yyyy")),
           "age" -> number,
           "salary" -> of[Double],
-          "admin" -> boolean
-      ){(_id,_creationDate,_updateDate,name,dob,age,salary,admin)=>
+          "admin" -> boolean,
+          "hobbies" -> text
+      ){(_id,_creationDate,_updateDate,name,dob,age,salary,admin,hobbies)=>
         Person(
             _id,
             _creationDate,
@@ -37,7 +37,8 @@ object Application extends Controller {
             dob,
             age,
             salary,
-            admin
+            admin,
+            hobbies.split(",").toList
         )
       }{person:Person=>
         Some(
@@ -48,7 +49,8 @@ object Application extends Controller {
             person.dob,
             person.age,
             person.salary,
-            person.admin
+            person.admin,
+            person.hobbies.mkString(",") 
         )
       }
   )
@@ -88,7 +90,7 @@ object Application extends Controller {
     }
   }}
 
-  def update(id:String) = Action (implicit request => {
+  def update(id:String) = Action { implicit request => {
     personForm.bindFromRequest.fold(
         formWithErrors => Ok(views.html.personform(formWithErrors,id)),
         personData => {
@@ -97,9 +99,9 @@ object Application extends Controller {
           Redirect(routes.Application.index)
         }
     )
-  })
+  }}
 
-  def delete(id:String) = Action{
+  def delete(id:String) = Action {
       val objectId = BSONObjectID(id)
       PersonModel.removePermanently(BSONDocument("_id" -> objectId))
       Redirect(routes.Application.index)
