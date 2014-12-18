@@ -20,9 +20,6 @@ Modify project/Build.scala
 <div class="highlight highlight-scala"><pre>
 import sbt._
 import Keys._
-import play.Play.autoImport._
-import PlayKeys._
-import play.twirl.sbt.Import.TwirlKeys
 
 object ApplicationBuild extends Build {
 
