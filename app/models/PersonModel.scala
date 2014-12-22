@@ -15,7 +15,7 @@ case class Person (
     _updateDate: Option[DateTime],
     name: String,
     dob: Option[DateTime],
-    age: Int,
+    age: Option[Int],
     salary: Double,
     admin: Boolean,
     hobbies: List[String]
@@ -32,7 +32,7 @@ object PersonModel {
 				doc.getAs[BSONDateTime]("_updateDate").map(dt => new DateTime(dt.value)),
 				doc.getAs[String]("name").get,
 				doc.getAs[BSONDateTime]("dob").map(dt => new DateTime(dt.value)),
-				doc.getAs[Int]("age").getOrElse(0),
+				doc.getAs[BSONInteger]("age").map(v => if(v.value.isValidInt) v.value else 0),
 				doc.getAs[Double]("salary").getOrElse(0.0),
 				doc.getAs[Boolean]("admin").getOrElse(false),
 				doc.getAs[List[String]]("hobbies").getOrElse(List())

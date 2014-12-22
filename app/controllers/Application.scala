@@ -24,7 +24,7 @@ object Application extends Controller {
           "_updateDate" -> optional(jodaDate),
           "name" -> text,
           "dob" -> optional(jodaDate("dd-mm-yyyy")),
-          "age" -> number,
+          "age" -> optional(number),
           "salary" -> of[Double],
           "admin" -> boolean,
           "hobbies" -> text
