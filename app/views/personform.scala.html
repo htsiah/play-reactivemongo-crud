@@ -25,6 +25,8 @@
 		@inputText(personform("salary"), '_label -> "Salary (Double)", '_showConstraints -> false)
 		@inputText(personform("hobbies"), '_label -> "Hobbies (Multi values. Separate with comma(,))", '_showConstraints -> false)
 		<input type="checkbox" value="true" name="admin" id="admin" @radioSelected(personform("admin").value, "true"))> Admin (Boolean)
+		@inputText(personform("address")("address"), '_label -> "Address (String)", '_showConstraints -> false)
+		@inputText(personform("address")("country"), '_label -> "Country (String)", '_showConstraints -> false)
 		<div style="display:none;">
 			@inputText(personform("_creationDate"))
 			@inputText(personform("_updateDate"))

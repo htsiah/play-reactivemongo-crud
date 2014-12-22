@@ -10,7 +10,7 @@ import play.api.data.Forms._
 import play.api.data.format.Formats._
 import play.api.libs.concurrent.Execution.Implicits._
 
-import models.{Person,PersonModel}
+import models.{Person,Address,PersonModel}
 
 import reactivemongo.api._
 import reactivemongo.bson.{BSONObjectID,BSONDocument}
@@ -27,8 +27,12 @@ object Application extends Controller {
           "age" -> optional(number),
           "salary" -> of[Double],
           "admin" -> boolean,
-          "hobbies" -> text
-      ){(_id,_creationDate,_updateDate,name,dob,age,salary,admin,hobbies)=>
+          "hobbies" -> text,
+          "address" -> mapping(
+              "address" -> text,
+              "country" -> text
+          )(Address.apply)(Address.unapply)
+      ){(_id,_creationDate,_updateDate,name,dob,age,salary,admin,hobbies,address)=>
         Person(
             _id,
             _creationDate,
@@ -38,7 +42,8 @@ object Application extends Controller {
             age,
             salary,
             admin,
-            hobbies.split(",").toList
+            hobbies.split(",").toList,
+            address
         )
       }{person:Person=>
         Some(
@@ -50,7 +55,8 @@ object Application extends Controller {
             person.age,
             person.salary,
             person.admin,
-            person.hobbies.mkString(",") 
+            person.hobbies.mkString(","),
+            person.address
         )
       }
   )

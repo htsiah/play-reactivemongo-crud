@@ -18,12 +18,27 @@ case class Person (
     age: Option[Int],
     salary: Double,
     admin: Boolean,
-    hobbies: List[String]
+    hobbies: List[String],
+    address: Address
+)
+
+case class Address (
+    address: String,
+    country: String
 )
   
 object PersonModel {
   
-  	// Use Reader to deserialize document automatically
+    // Use Reader to deserialize document automatically
+	implicit object AddressBSONReader extends BSONDocumentReader[Address] {
+		def read(doc: BSONDocument): Address = {
+			Address (
+				doc.getAs[String]("address").get,
+				doc.getAs[String]("country").get
+			)
+		}
+	}
+	
 	implicit object PersonBSONReader extends BSONDocumentReader[Person] {
 		def read(doc: BSONDocument): Person = {
 			Person(
@@ -35,12 +50,22 @@ object PersonModel {
 				doc.getAs[BSONInteger]("age").map(v => if(v.value.isValidInt) v.value else 0),
 				doc.getAs[Double]("salary").getOrElse(0.0),
 				doc.getAs[Boolean]("admin").getOrElse(false),
-				doc.getAs[List[String]]("hobbies").getOrElse(List())
+				doc.getAs[List[String]]("hobbies").getOrElse(List()),
+				doc.getAs[Address]("address").getOrElse(null)
 			)
 		}
 	}
 	
 	// Use Writer to serialize document automatically
+	implicit object AddressBSONWriter extends BSONDocumentWriter[Address] {
+		def write(person: Address): BSONDocument = {
+			BSONDocument(
+				"address" -> person.address,
+				"country" -> person.country 
+			)
+		}
+	}
+
 	implicit object PersonBSONWriter extends BSONDocumentWriter[Person] {
 		def write(person: Person): BSONDocument = {
 			BSONDocument(
@@ -52,7 +77,8 @@ object PersonModel {
 				"age" -> person.age,
 				"salary" -> person.salary,
 				"admin" -> person.admin,
-				"hobbies" -> person.hobbies 
+				"hobbies" -> person.hobbies,
+				"address" -> person.address 
 			)
 		}
 	}
