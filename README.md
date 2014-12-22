@@ -5,6 +5,7 @@ This is a Play CRUD Example using reactiveMongo driver. It demontrates:
 <li>MongoDb Connection using reactiveMongoDb in Play</li>
 <li>BSONReader and BSONWriter Implementation</li>
 <li>CRUD using different data type(String, JodaDate, Integer, Double, Boolean and List)</li>
+<li>22 Fields Limit workaround by using multiple case class in Model</li>
 </ul>
 
 This example use the following:
