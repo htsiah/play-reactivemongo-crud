@@ -11,7 +11,7 @@ This is a Play CRUD Example using reactiveMongo driver. It demontrates:
 This example use the following:
 <ul>
 <li>Play Framework 2.3.6</li>
-<li>reactiveMongoDb Driver</li>
+<li>Reactive Scala Driver for MongoDB 10.5</li>
 <li>MongoDb</li>
 <li>JQuery</li>
 </ul>
