@@ -1,4 +1,4 @@
-Reactivemongo for Play 2.3 Example
+Reactivemongo for Play 2.4 Example
 =======================
 This is a Play CRUD Example using reactiveMongo driver. It demontrates:
 <ul>
