@@ -10,12 +10,16 @@ import play.api.data.Forms._
 import play.api.data.format.Formats._
 import play.api.libs.concurrent.Execution.Implicits._
 
+import play.api.i18n.{MessagesApi, I18nSupport}
+
 import models.{Person,Address,PersonModel}
 
 import reactivemongo.api._
 import reactivemongo.bson.{BSONObjectID,BSONDocument}
 
-object Application extends Controller {
+import javax.inject.Inject
+
+class Application @Inject()(val messagesApi: MessagesApi) extends Controller with I18nSupport {
   
   val personForm = Form(
       mapping(
