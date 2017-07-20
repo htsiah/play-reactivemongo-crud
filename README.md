@@ -15,6 +15,7 @@ This example use the following:
 <li>MongoDb</li>
 <li>JQuery</li>
 </ul>
+
 Setup Instruction
 =======================
 Modify build.sbt
