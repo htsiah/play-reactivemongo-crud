@@ -86,8 +86,8 @@ class Application @Inject()(val messagesApi: MessagesApi) extends Controller wit
   }}
   
   def edit(id:String) = Action.async { implicit request => {
-    val objectId = BSONObjectID(id)
-    val futurePerson = PersonModel.findOne(BSONDocument("_id" -> objectId))
+    val objectId = BSONObjectID.parse(id)
+    val futurePerson = PersonModel.findOne(BSONDocument("_id" -> objectId.get))
     // Let's use for-comprehensions to compose futures 
     // Bassically for will remove Future and using map to check whether the documen found or not found
     // (see http://doc.akka.io/docs/akka/2.0.3/scala/futures.html#For_Comprehensions for more information)
@@ -96,6 +96,7 @@ class Application @Inject()(val messagesApi: MessagesApi) extends Controller wit
     } yield {
       maybePerson.map( person => {
         Ok(views.html.personform(personForm.fill(person),id))
+        
       }).getOrElse(NotFound)
     }
   }}
@@ -104,16 +105,16 @@ class Application @Inject()(val messagesApi: MessagesApi) extends Controller wit
     personForm.bindFromRequest.fold(
         formWithErrors => Ok(views.html.personform(formWithErrors,id)),
         personData => {
-          val objectId = BSONObjectID(id)
-          PersonModel.update(BSONDocument("_id" -> objectId),personData.copy(_id=objectId))
+          val objectId = BSONObjectID.parse(id)
+          PersonModel.update(BSONDocument("_id" -> objectId.get),personData.copy(_id=objectId.get))
           Redirect(routes.Application.index)
         }
     )
   }}
 
   def delete(id:String) = Action {
-      val objectId = BSONObjectID(id)
-      PersonModel.removePermanently(BSONDocument("_id" -> objectId))
+      val objectId = BSONObjectID.parse(id)
+      PersonModel.removePermanently(BSONDocument("_id" -> objectId.get))
       Redirect(routes.Application.index)
   }
   

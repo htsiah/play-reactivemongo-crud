@@ -6,7 +6,7 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 scalaVersion := "2.11.11"
 
-libraryDependencies += "org.reactivemongo" %% "play2-reactivemongo" % "0.11.14-play24"
+libraryDependencies += "org.reactivemongo" %% "play2-reactivemongo" % "0.12.0-play24"
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 

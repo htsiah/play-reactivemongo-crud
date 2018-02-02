@@ -18,3 +18,11 @@ scala:93: method db in class MongoConnection is deprecated: Must use [[apply]]
 [warn] one warning found
 
 Change to val db = Await.result(connection.database("reactivemongo"), Duration(5000, "millis"))
+
+
+[warn] C:\Users\lenovo\workspace\play-reactivemongo-crud\app\controllers\Applica
+tion.scala:115: method apply in object BSONObjectID is deprecated: `parse(str: S
+tring): Try[BSONObjectID]` should be considered instead of this method
+[warn]       val objectId = BSONObjectID(id)
+
+Change to val objectId = BSONObjectID.parse(id)
