@@ -1,6 +1,9 @@
 package models
 
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
 import scala.util.{Success, Failure}
+
 import org.joda.time.DateTime
 
 import play.api.libs.concurrent._
@@ -90,7 +93,7 @@ object PersonModel {
 	val connection = driver.connection(List("localhost"))
 
 	// Connect to mongodb
-	val db = connection.db("reactivemongo")
+	val db = Await.result(connection.database("reactivemongo"), Duration(5000, "millis"))
 	
 	// Connect to mongodb collection
 	val collection = db.collection("persons")
@@ -122,7 +125,7 @@ object PersonModel {
 	
 	// Find all documents using blocking
 	def find(p_query:BSONDocument) = {
-	  collection.find(p_query).cursor[Person].collect[List]()	  
+	  collection.find(p_query).cursor[Person]().collect[List]()
 	}
 	
 	// Find one document using blocking
