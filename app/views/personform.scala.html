@@ -1,4 +1,4 @@
-@(personform:Form[Person],id:String="")(implicit messages: Messages)
+@(personform:Form[Person],id:String="")(implicit req: RequestHeader, messages: Messages)
 
 @import helper._
 
@@ -14,9 +14,9 @@
 
 	@helper.form(action = (
 		if(id==""){
-			routes.Application.insert
+			helper.CSRF(routes.Application.insert)
 		} else {
-			routes.Application.update(id)
+			helper.CSRF(routes.Application.update(id))
 		}
 	), 'id -> "personform") {
 		@inputText(personform("name"), '_label -> "Name (String)", '_showConstraints -> false)
@@ -31,6 +31,7 @@
 			@inputText(personform("_creationDate"))
 			@inputText(personform("_updateDate"))
 		</div>
+		<input type="submit">
 	}
 		
 	<a href="javascript:$('#personform').submit()">Save</a>

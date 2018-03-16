@@ -4,10 +4,13 @@ version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-scalaVersion := "2.11.11"
+scalaVersion := "2.12.4"
 
 libraryDependencies ++= Seq(
-  "org.reactivemongo" %% "play2-reactivemongo" % "0.13.0-play25"
+	guice,
+  "org.reactivemongo" %% "play2-reactivemongo" % "0.13.0-play26",
+  "com.typesafe.play" %% "play-json-joda" % "2.6.8",
+  jodaForms
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"

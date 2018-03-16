@@ -2,6 +2,7 @@ package controllers
 
 import scala.concurrent.Future
 import org.joda.time.DateTime
+import play.api.data.JodaForms._
 
 import play.api._
 import play.api.mvc._
@@ -19,7 +20,7 @@ import reactivemongo.bson.{BSONObjectID,BSONDocument}
 
 import javax.inject.Inject
 
-class Application @Inject()(val messagesApi: MessagesApi) extends Controller with I18nSupport {
+class Application @Inject()(cc: ControllerComponents) extends AbstractController(cc)  with I18nSupport {
   
   val personForm = Form(
       mapping(
@@ -70,8 +71,9 @@ class Application @Inject()(val messagesApi: MessagesApi) extends Controller wit
     futurePerson.map(persons => Ok(views.html.index(persons)))
   }
   
-  def create = Action {
-    Ok(views.html.personform(personForm))
+  def create = Action { implicit request => {
+      Ok(views.html.personform(personForm))
+    }
   }
   
   def insert = Action { implicit request => {   
