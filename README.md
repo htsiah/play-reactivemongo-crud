@@ -1,4 +1,4 @@
-Reactivemongo for Play 2.4 Example
+Reactivemongo for Play 2.6 Example
 =======================
 This is a Play CRUD Example using reactiveMongo driver. It demontrates:
 <ul>
@@ -10,7 +10,7 @@ This is a Play CRUD Example using reactiveMongo driver. It demontrates:
 
 This example use the following:
 <ul>
-<li>Play Framework 2.4.11</li>
+<li>Play Framework 2.6.11</li>
 <li>Reactive Scala Driver for MongoDB 0.12.0-play24</li>
 <li>Scala 2.11.8</li>
 <li>MongoDb</li>
